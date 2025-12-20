@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": "dist"        // 👈 compiled files will go here
+  },
+  "include": ["**/*.ts"],    // compile all TS files in the project
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.spec.ts"            // ignore test files
+  ],
+  "ts-node": {
+    "esm": true
+  }
+}
