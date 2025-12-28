@@ -67,6 +67,38 @@ export const getProjects = async (req: Request, res: Response) => {
         res.status(500).send("Something went wrong.")
     }
 }
+export const getProjectsByWorkspace = async (req: Request, res: Response) => {
+    try {
+        let query: any = {
+              workspaceId: req.params.id
+        }
+        if (req.query.workspace !== "all") {
+            query = { workspaceId: req.query.workspace }
+        }
+
+        const projects = await prisma.project.findMany({
+            where: query,
+            select: {
+                id: true,
+                name: true,
+                description: true,
+                color: true,
+                createdAt: true,
+                updatedAt: true,
+                workspace: true,
+                workspaceId: true,
+                columns: true,
+                activities: true
+            }
+        })
+
+        res.send(projects)
+    } catch (error) {
+        res.status(500).send("Something went wrong.")
+    }
+}
+
+
 
 export const deleteProject = async (req: Request, res: Response) => {
     try {

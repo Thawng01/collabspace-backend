@@ -3,7 +3,7 @@ import { createTask, deleteTask, editTask, getTaskDetail, getTasks, getTasksByCo
 
 const router = Router()
 
-router.get("/index", getTasks)
+router.get("/index/:id", getTasks)
 router.get("/details/:id", getTaskDetail)
 router.get("/:id", getTasksByColumn)
 router.post("/", createTask)

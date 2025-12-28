@@ -10,6 +10,7 @@ import taskRoutes from './routes/task.routes'
 import labelRoutes from './routes/label.routes'
 import commentRoutes from './routes/comment.routes'
 import activityRoutes from './routes/activity.routes'
+import dashboardRoutes from './routes/dashboard.routes'
 import { config } from 'dotenv'
 
 config()
@@ -20,6 +21,7 @@ app.use(express.json())
 
 app.use("/api/users", userRoutes)
 app.use("/api/auth", loginRoutes)
+app.use("/api/dashboard", dashboardRoutes)
 app.use("/api/workspaces", workspaceRoutes)
 app.use("/api/labels", labelRoutes)
 app.use("/api/workspaces/members", memberRoutes)
