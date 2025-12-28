@@ -27,12 +27,24 @@ export const getTaskActivities = async (req: Request, res: Response) => {
     }
 }
 // all task activities
-export const getAllTaskActivities = async (req: Request, res: Response) => {
+export const getAllTaskActivitiesByTask = async (req: Request, res: Response) => {
     try {
 
         const activities = await prisma.activity.findMany({
             where: {
                 taskId: req.params.id
+            },
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true
+                    }
+                },
+
+                task: true,
+                project: true
             },
             orderBy: {
                 createdAt: 'desc'

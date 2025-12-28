@@ -4,6 +4,7 @@
   "ignore": ["**/*.spec.ts", "dist", "node_modules"],
   "exec": "tsx index.ts",
   "signal": "SIGTERM",
+  "delay": "1000",
   "env": {
     "NODE_ENV": "development"
   }

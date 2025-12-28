@@ -30,7 +30,13 @@ export const getWorkspaces = async (req: Request, res: Response) => {
     try {
         const user = res.locals.user
         const workspaces = await prisma.workspace.findMany({
-            where: { ownerId: user.id },
+            where: { OR: [{ownerId: user.id}, {
+                members: {
+                    some: {
+                        userId: user.id
+                    }
+                }
+            }] },
 
 
             select: {

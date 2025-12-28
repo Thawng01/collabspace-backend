@@ -10,6 +10,9 @@ import taskRoutes from './routes/task.routes'
 import labelRoutes from './routes/label.routes'
 import commentRoutes from './routes/comment.routes'
 import activityRoutes from './routes/activity.routes'
+import { config } from 'dotenv'
+
+config()
 
 const app = express()
 app.use(cors())
@@ -26,6 +29,6 @@ app.use("/api/projects/columns/tasks", taskRoutes)
 app.use("/api/projects/columns/tasks/comments", commentRoutes)
 app.use("/api/projects/columns/tasks/activities", activityRoutes)
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 9000
 
 app.listen(PORT, () => console.log(`Listening to ${PORT}`))

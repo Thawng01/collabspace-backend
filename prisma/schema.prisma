@@ -177,7 +177,7 @@ model Attachment {
 
 model Activity {
   id        String   @id @default(cuid())
-  action    String // e.g., "created", "updated", "moved"
+  action    String 
   details   Json? // Flexible data about the change
   createdAt DateTime @default(now())
 

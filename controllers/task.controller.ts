@@ -135,6 +135,7 @@ export const getTasksByColumn = async (req: Request, res: Response) => {
 
 // move task to a different column
 export const updateColumnTask = async (req: Request, res: Response) => {
+    
     try {
 
         const { columnId, taskId } = req.body
@@ -170,7 +171,7 @@ export const updateColumnTask = async (req: Request, res: Response) => {
 
         res.send(task)
     } catch (error) {
-        res.status(500).send("Something went wrong.")
+        res.status(500).send("Something went wrong." + error)
     }
 }
 
@@ -201,6 +202,7 @@ export const getTaskDetail = async (req: Request, res: Response) => {
     }
 }
 export const updateTaskDescription = async (req: Request, res: Response) => {
+    
     try {
         const { userId, projectId, priority, description } = req.body
         const task = await prisma.task.update({

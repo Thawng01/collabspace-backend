@@ -19,7 +19,8 @@ export const createCommnet = async (req: Request, res: Response) => {
                 userId: authorId,
                 taskId,
                 projectId,
-                action: "COMMENT"
+                action: "COMMENT",
+                details: content
             }
         })
 

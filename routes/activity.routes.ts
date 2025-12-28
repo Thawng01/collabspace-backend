@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { getAllTaskActivities, getTaskActivities } from "../controllers/activity.controller";
+import { getAllTaskActivitiesByTask, getTaskActivities } from "../controllers/activity.controller";
 
 
 const router = Router()
 
-router.get("/", getAllTaskActivities)
+router.get("/:id", getAllTaskActivitiesByTask)
 router.get("/recent/:id", getTaskActivities)
 
 export default router
