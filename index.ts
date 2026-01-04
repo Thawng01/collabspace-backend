@@ -31,6 +31,6 @@ app.use("/api/projects/columns/tasks", taskRoutes)
 app.use("/api/projects/columns/tasks/comments", commentRoutes)
 app.use("/api/projects/columns/tasks/activities", activityRoutes)
 
-const PORT = process.env.PORT || 9000
+const PORT = process.env.PORT || 8000
 
 app.listen(PORT, () => console.log(`Listening to ${PORT}`))

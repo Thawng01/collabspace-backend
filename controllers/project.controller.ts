@@ -73,7 +73,7 @@ export const getProjectsByWorkspace = async (req: Request, res: Response) => {
               workspaceId: req.params.id
         }
         if (req.query.workspace !== "all") {
-            query = { workspaceId: req.query.workspace }
+            query = { workspaceId: req.query.workspace || req.params.id }
         }
 
         const projects = await prisma.project.findMany({
