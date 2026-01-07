@@ -69,15 +69,13 @@ export const getWorkspaces = async (req: Request, res: Response) => {
                 }
             }
         })
-        console.log(workspaces)
+        // console.log(workspaces)
         res.send(workspaces)
     } catch (error) {
         res.status(500).send("Something went wrong.")
 
     }
 }
-
-
 
 export const getWorkspaceDetails = async (req: Request, res: Response) => {
     try {
@@ -118,12 +116,10 @@ export const updateWorkspace = async (req: Request, res: Response) => {
     }
 }
 
-
-
 export const deleteWorkspace = async (req: Request, res: Response) => {
     try {
         const workspaceId = req.params.id
-        console.log("Hii")
+        // console.log("Hii")
         await prisma.workspace.delete({
             where: { id: workspaceId }
         })

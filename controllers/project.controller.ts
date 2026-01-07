@@ -67,8 +67,10 @@ export const getProjects = async (req: Request, res: Response) => {
         res.status(500).send("Something went wrong.")
     }
 }
+
 export const getProjectsByWorkspace = async (req: Request, res: Response) => {
     try {
+    
         let query: any = {
               workspaceId: req.params.id
         }
