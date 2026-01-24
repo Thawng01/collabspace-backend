@@ -34,33 +34,68 @@ model User {
 }
 
 model Workspace {
-  id          String            @id @default(cuid())
+  id          String   @id @default(cuid())
   name        String
   description String?
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-  // Relations
-  owner       User              @relation("WorkspaceOwner", fields: [ownerId], references: [id], onDelete: Cascade)
-  ownerId     String
-  members     WorkspaceMember[]
-  projects    Project[]
-  labels      Label[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  owner    User              @relation("WorkspaceOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId  String
+  members  WorkspaceMember[]
+  projects Project[]
+  labels   Label[]
+  Role     Role[]
 
   @@map("workspaces")
 }
 
+// Remove MemberRole enum and use Role model instead
 model WorkspaceMember {
-  id          String     @id @default(cuid())
-  role        MemberRole @default(MEMBER)
-  joinedAt    DateTime   @default(now())
-  // Relations
-  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  roleId String
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
-  workspace   Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   workspaceId String
+  role        Role      @relation(fields: [roleId], references: [id])
+
+  joinedAt DateTime @default(now())
 
   @@unique([userId, workspaceId])
   @@map("workspace_members")
+}
+
+model Role {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  workspaceId String    // Each role belongs to a specific workspace
+  
+  // Relations
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  members     WorkspaceMember[]
+  permissions RolePermission[] // Workspace-specific permissions
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@unique([name, workspaceId])
+  @@map("roles")
+}
+
+model RolePermission {
+  id           String    @id @default(cuid())
+  roleId       String
+  permission   String    // Store permission code directly (e.g., "project:create")
+  
+  role         Role      @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  allowed     Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  
+  @@unique([roleId, permission])
+  @@map("role_permissions")
 }
 
 model Project {
@@ -177,7 +212,7 @@ model Attachment {
 
 model Activity {
   id        String   @id @default(cuid())
-  action    String 
+  action    String
   details   Json? // Flexible data about the change
   createdAt DateTime @default(now())
 
